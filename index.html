@@ -3,180 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sorry Popat 💚</title>
+<title>Popat Sorry Quest 💚</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Comic Sans MS', cursive;
+:root{
+  --pink:#ff4d6d;
+  --green:#2ecc71;
+  --glass:rgba(255,255,255,0.25);
 }
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Comic Sans MS',cursive;}
 
 body{
   min-height:100vh;
-  background: radial-gradient(circle at top,#ffd1dc,#a8edea);
+  background:linear-gradient(135deg,#a8edea,#fed6e3);
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
 }
 
-/* Floating hearts */
-.heart{
+/* floating emojis */
+.float{
   position:absolute;
-  font-size:20px;
-  animation: float 6s linear infinite;
-  opacity:0.7;
+  font-size:22px;
+  animation: float 7s linear infinite;
+  opacity:.7;
 }
 @keyframes float{
-  0%{transform:translateY(100vh);opacity:0;}
-  50%{opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
 }
 
-.card{
-  background:white;
-  width:90%;
-  max-width:430px;
-  padding:30px;
+/* main glass card */
+.app{
+  width:92%;
+  max-width:460px;
+  background:var(--glass);
+  backdrop-filter:blur(15px);
   border-radius:30px;
+  padding:30px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.3);
-  z-index:2;
-  animation: fadeIn 1.2s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.8);}
-  to{opacity:1;transform:scale(1);}
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  z-index:5;
 }
 
 .popat{
-  font-size:80px;
-  animation:bounce 1.5s infinite;
+  font-size:85px;
+  animation:bounce 1.4s infinite;
 }
 @keyframes bounce{
-  0%,100%{transform:translateY(0);}
   50%{transform:translateY(-15px);}
 }
 
 h1{
-  color:#ff4081;
+  color:var(--pink);
   margin:10px 0;
 }
 
-.cards{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  margin:20px 0;
-}
-
-.playcard{
-  width:70px;
-  height:90px;
-  background:linear-gradient(135deg,#ff80ab,#ff4081);
-  border-radius:15px;
-  color:white;
-  font-size:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 10px 20px rgba(0,0,0,0.2);
-  transition:0.3s;
-}
-
-.playcard:hover{
-  transform:scale(1.1);
-}
-
-#msg{
-  display:none;
-  margin-top:15px;
+.story{
   font-size:17px;
+  min-height:70px;
   color:#333;
 }
 
+/* progress bar game */
+.progress-box{
+  margin:20px 0;
+  background:#fff;
+  border-radius:30px;
+  overflow:hidden;
+  height:18px;
+}
+.progress{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,var(--pink),var(--green));
+  transition:.4s;
+}
+
+.tap-btn{
+  margin-top:15px;
+  padding:14px 35px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff4d6d,#ff8fa3);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 20px rgba(0,0,0,.25);
+}
+
+.tap-btn:active{transform:scale(.95);}
+
+#final{
+  display:none;
+  margin-top:20px;
+  font-size:17px;
+}
+
 /* fireworks */
-.firework{
+.spark{
   position:absolute;
-  width:8px;
-  height:8px;
+  width:6px;
+  height:6px;
   background:gold;
   border-radius:50%;
-  animation: explode 1s ease-out forwards;
+  animation:boom 1s ease-out forwards;
 }
-@keyframes explode{
-  to{
-    transform:scale(20);
-    opacity:0;
-  }
+@keyframes boom{
+  to{transform:scale(25);opacity:0;}
 }
 
 .footer{
-  margin-top:20px;
-  font-size:14px;
-  color:#777;
+  margin-top:18px;
+  font-size:13px;
+  color:#555;
 }
 </style>
 </head>
 
 <body>
 
-<!-- hearts -->
-<span class="heart" style="left:10%;">💖</span>
-<span class="heart" style="left:30%;animation-delay:2s;">💚</span>
-<span class="heart" style="left:60%;animation-delay:4s;">💕</span>
-<span class="heart" style="left:80%;animation-delay:1s;">❤️</span>
+<!-- floating vibes -->
+<span class="float" style="left:10%">💚</span>
+<span class="float" style="left:30%;animation-delay:2s">🐦</span>
+<span class="float" style="left:60%;animation-delay:4s">✨</span>
+<span class="float" style="left:80%;animation-delay:1s">💖</span>
 
-<!-- background music -->
 <audio autoplay loop>
-  <source src="Relax_with_Soft_Piano_Music_Birds_Singing_Beautiful_Nature_256KBPS.mp3" type="audio/mpeg">
+  <source src="Relax_with_Soft_Piano_Music_Birds_Singing_Beautiful_Nature_256KBPS.mp3">
 </audio>
 
-<div class="card">
+<div class="app">
   <div class="popat">🐦</div>
-  <h1>Sorry Popat 💚</h1>
+  <h1>Popat Sorry Quest</h1>
 
-  <p>Ek card choose karo 😄</p>
-
-  <div class="cards">
-    <div class="playcard" onclick="reveal()">🎴</div>
-    <div class="playcard" onclick="reveal()">🎴</div>
-    <div class="playcard" onclick="reveal()">🎴</div>
+  <div class="story" id="story">
+    Mission start 😶<br>
+    New Year wish bhool gayi…
   </div>
 
-  <div id="msg">
+  <div class="progress-box">
+    <div class="progress" id="bar"></div>
+  </div>
+
+  <button class="tap-btn" onclick="play()">Tap to Fix My Mistake 💔</button>
+
+  <div id="final">
     <p>
-      New Year wish late ho gayi 😭<br>
-      Par tu bhoolne jaisa bilkul nahi ❤️<br><br>
+      Mission Complete 💚<br><br>
       Tu sirf friend nahi,<br>
-      <b>mera Popat</b> hai 🐦💚<br><br>
+      <b>mera comfort person</b> hai 🐦<br><br>
+      Late wish thi…<br>
+      par dosti lifetime wali 😌<br><br>
       Sorry Popat 🙏<br>
       ✨ Happy New Year ✨
     </p>
   </div>
 
   <div class="footer">
-    Tap anywhere for fireworks 🎆
+    Tap anywhere for celebration 🎆
   </div>
 </div>
 
 <script>
-function reveal(){
-  document.getElementById("msg").style.display="block";
+let progress=0;
+const bar=document.getElementById("bar");
+const story=document.getElementById("story");
+
+function play(){
+  if(progress<100){
+    progress+=25;
+    bar.style.width=progress+"%";
+
+    if(progress==25) story.innerHTML="Popat thoda naraz hai 😑";
+    if(progress==50) story.innerHTML="Popat soch raha hai… 🤔";
+    if(progress==75) story.innerHTML="Popat almost maan gaya 😌";
+    if(progress==100){
+      story.innerHTML="Popat maan gaya 💚";
+      document.getElementById("final").style.display="block";
+    }
+  }
 }
 
-/* fireworks on click */
-document.body.addEventListener("click",function(e){
-  const fw=document.createElement("div");
-  fw.className="firework";
-  fw.style.left=e.clientX+"px";
-  fw.style.top=e.clientY+"px";
-  document.body.appendChild(fw);
-  setTimeout(()=>fw.remove(),1000);
+/* fireworks */
+document.body.addEventListener("click",e=>{
+  const s=document.createElement("div");
+  s.className="spark";
+  s.style.left=e.clientX+"px";
+  s.style.top=e.clientY+"px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1000);
 });
 </script>
 
