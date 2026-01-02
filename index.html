@@ -10,41 +10,55 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: 'Comic Sans MS', cursive;
+  font-family:'Comic Sans MS', cursive;
 }
 
 body{
   min-height:100vh;
-  background: linear-gradient(135deg,#a8edea,#fed6e3);
+  background: radial-gradient(circle at top,#ffd1dc,#a8edea);
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
+}
+
+/* Floating hearts */
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation: float 6s linear infinite;
+  opacity:0.7;
+}
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
 }
 
 .card{
-  background:#fff;
+  background:white;
   width:90%;
-  max-width:420px;
+  max-width:430px;
   padding:30px;
-  border-radius:25px;
+  border-radius:30px;
   text-align:center;
-  box-shadow:0 15px 30px rgba(0,0,0,0.25);
-  animation: zoom 1s ease;
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  z-index:2;
+  animation: fadeIn 1.2s ease;
 }
 
-@keyframes zoom{
-  from{transform:scale(0.5);opacity:0;}
-  to{transform:scale(1);opacity:1;}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.8);}
+  to{opacity:1;transform:scale(1);}
 }
 
 .popat{
-  font-size:70px;
-  animation: bounce 1.5s infinite;
+  font-size:80px;
+  animation:bounce 1.5s infinite;
 }
-
 @keyframes bounce{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
+  50%{transform:translateY(-15px);}
 }
 
 h1{
@@ -52,34 +66,57 @@ h1{
   margin:10px 0;
 }
 
-p{
-  font-size:17px;
-  color:#333;
-  margin:12px 0;
+.cards{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin:20px 0;
 }
 
-button{
-  background:#ff4081;
-  color:#fff;
-  border:none;
-  padding:12px 28px;
-  border-radius:30px;
-  font-size:16px;
+.playcard{
+  width:70px;
+  height:90px;
+  background:linear-gradient(135deg,#ff80ab,#ff4081);
+  border-radius:15px;
+  color:white;
+  font-size:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
-  margin-top:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  transition:0.3s;
 }
 
-button:hover{
-  background:#e91e63;
+.playcard:hover{
+  transform:scale(1.1);
 }
 
 #msg{
   display:none;
   margin-top:15px;
+  font-size:17px;
+  color:#333;
+}
+
+/* fireworks */
+.firework{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:gold;
+  border-radius:50%;
+  animation: explode 1s ease-out forwards;
+}
+@keyframes explode{
+  to{
+    transform:scale(20);
+    opacity:0;
+  }
 }
 
 .footer{
-  margin-top:18px;
+  margin-top:20px;
   font-size:14px;
   color:#777;
 }
@@ -88,37 +125,59 @@ button:hover{
 
 <body>
 
+<!-- hearts -->
+<span class="heart" style="left:10%;">💖</span>
+<span class="heart" style="left:30%;animation-delay:2s;">💚</span>
+<span class="heart" style="left:60%;animation-delay:4s;">💕</span>
+<span class="heart" style="left:80%;animation-delay:1s;">❤️</span>
+
+<!-- background music -->
+<audio autoplay loop>
+  <source src="Relax_with_Soft_Piano_Music_Birds_Singing_Beautiful_Nature_256KBPS.mp3" type="audio/mpeg">
+</audio>
+
 <div class="card">
   <div class="popat">🐦</div>
   <h1>Sorry Popat 💚</h1>
 
-  <p>
-    New Year wish karna bhool gayi 😭<br>
-    Ye meri sabse badi bhool thi…
-  </p>
+  <p>Ek card choose karo 😄</p>
 
-  <button onclick="showSorry()">Click karo Popat 😄</button>
+  <div class="cards">
+    <div class="playcard" onclick="reveal()">🎴</div>
+    <div class="playcard" onclick="reveal()">🎴</div>
+    <div class="playcard" onclick="reveal()">🎴</div>
+  </div>
 
   <div id="msg">
     <p>
+      New Year wish late ho gayi 😭<br>
+      Par tu bhoolne jaisa bilkul nahi ❤️<br><br>
       Tu sirf friend nahi,<br>
-      <b>MERA BEST FRIEND</b> hai ❤️<br><br>
-      Late ho gayi par feelings full power 😌<br>
-      Sorry Popat 🙏<br><br>
-      ✨ Happy New Year ✨<br>
-      Hamesha mera favourite Popat rahega 😂💚
+      <b>mera Popat</b> hai 🐦💚<br><br>
+      Sorry Popat 🙏<br>
+      ✨ Happy New Year ✨
     </p>
   </div>
 
   <div class="footer">
-    Made with 💚 by your bestie
+    Tap anywhere for fireworks 🎆
   </div>
 </div>
 
 <script>
-function showSorry(){
+function reveal(){
   document.getElementById("msg").style.display="block";
 }
+
+/* fireworks on click */
+document.body.addEventListener("click",function(e){
+  const fw=document.createElement("div");
+  fw.className="firework";
+  fw.style.left=e.clientX+"px";
+  fw.style.top=e.clientY+"px";
+  document.body.appendChild(fw);
+  setTimeout(()=>fw.remove(),1000);
+});
 </script>
 
 </body>
