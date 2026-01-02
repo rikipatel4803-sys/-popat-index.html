@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,100 +7,65 @@
 <title>Popat Sorry Quest 💚</title>
 
 <style>
-:root{
-  --pink:#ff4d6d;
-  --green:#2ecc71;
-  --glass:rgba(255,255,255,0.25);
-}
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Comic Sans MS',cursive;}
 
 body{
   min-height:100vh;
   background:linear-gradient(135deg,#a8edea,#fed6e3);
+  overflow:hidden;
+}
+
+/* start screen */
+#start{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-}
-
-/* floating emojis */
-.float{
-  position:absolute;
-  font-size:22px;
-  animation: float 7s linear infinite;
-  opacity:.7;
-}
-@keyframes float{
-  0%{transform:translateY(100vh);}
-  100%{transform:translateY(-10vh);}
-}
-
-/* main glass card */
-.app{
-  width:92%;
-  max-width:460px;
-  background:var(--glass);
-  backdrop-filter:blur(15px);
-  border-radius:30px;
-  padding:30px;
-  text-align:center;
-  box-shadow:0 30px 60px rgba(0,0,0,.25);
-  z-index:5;
-}
-
-.popat{
-  font-size:85px;
-  animation:bounce 1.4s infinite;
-}
-@keyframes bounce{
-  50%{transform:translateY(-15px);}
-}
-
-h1{
-  color:var(--pink);
-  margin:10px 0;
-}
-
-.story{
-  font-size:17px;
-  min-height:70px;
-  color:#333;
-}
-
-/* progress bar game */
-.progress-box{
-  margin:20px 0;
-  background:#fff;
-  border-radius:30px;
-  overflow:hidden;
-  height:18px;
-}
-.progress{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,var(--pink),var(--green));
-  transition:.4s;
-}
-
-.tap-btn{
-  margin-top:15px;
-  padding:14px 35px;
-  border:none;
-  border-radius:40px;
-  background:linear-gradient(135deg,#ff4d6d,#ff8fa3);
   color:white;
-  font-size:16px;
-  cursor:pointer;
-  box-shadow:0 10px 20px rgba(0,0,0,.25);
+  font-size:22px;
+  z-index:50;
 }
 
-.tap-btn:active{transform:scale(.95);}
+/* flying popat */
+#popat{
+  position:absolute;
+  font-size:70px;
+  cursor:pointer;
+  transition:0.3s;
+}
 
-#final{
+/* message card */
+.card{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:30px;
+  width:90%;
+  max-width:420px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
   display:none;
-  margin-top:20px;
-  font-size:17px;
+  z-index:10;
+}
+
+.card h1{color:#ff4081;margin-bottom:10px;}
+.card p{font-size:17px;color:#333;}
+
+/* confetti */
+.confetti{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:gold;
+  animation:fall 2s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(100vh) rotate(360deg);opacity:0;}
 }
 
 /* fireworks */
@@ -107,87 +73,94 @@ h1{
   position:absolute;
   width:6px;
   height:6px;
-  background:gold;
+  background:#ff0;
   border-radius:50%;
   animation:boom 1s ease-out forwards;
 }
 @keyframes boom{
-  to{transform:scale(25);opacity:0;}
-}
-
-.footer{
-  margin-top:18px;
-  font-size:13px;
-  color:#555;
+  to{transform:scale(20);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- floating vibes -->
-<span class="float" style="left:10%">💚</span>
-<span class="float" style="left:30%;animation-delay:2s">🐦</span>
-<span class="float" style="left:60%;animation-delay:4s">✨</span>
-<span class="float" style="left:80%;animation-delay:1s">💖</span>
+<div id="start">Tap anywhere to start 🎵</div>
 
-<audio autoplay loop>
+<audio id="music" loop>
   <source src="Relax_with_Soft_Piano_Music_Birds_Singing_Beautiful_Nature_256KBPS.mp3">
 </audio>
 
-<div class="app">
-  <div class="popat">🐦</div>
-  <h1>Popat Sorry Quest</h1>
+<div id="popat">🐦</div>
 
-  <div class="story" id="story">
-    Mission start 😶<br>
-    New Year wish bhool gayi…
-  </div>
-
-  <div class="progress-box">
-    <div class="progress" id="bar"></div>
-  </div>
-
-  <button class="tap-btn" onclick="play()">Tap to Fix My Mistake 💔</button>
-
-  <div id="final">
-    <p>
-      Mission Complete 💚<br><br>
-      Tu sirf friend nahi,<br>
-      <b>mera comfort person</b> hai 🐦<br><br>
-      Late wish thi…<br>
-      par dosti lifetime wali 😌<br><br>
-      Sorry Popatii 🙏<br>
-      ✨ Happy New Year ✨
-    </p>
-  </div>
-
-  <div class="footer">
-    Tap anywhere for celebration 🎆
-  </div>
+<div class="card" id="final">
+  <h1>Happy New Year 💚</h1>
+  <p>
+    Popat pakday gayo 😄<br><br>
+    New Year wish late ho gayi 😭<br>
+    par tu meri life ka fixed part hai 🐦💚<br><br>
+    Sorry Popat 🙏<br>
+    ✨ Happy New Year ✨
+  </p>
 </div>
 
 <script>
-let progress=0;
-const bar=document.getElementById("bar");
-const story=document.getElementById("story");
+const start=document.getElementById("start");
+const popat=document.getElementById("popat");
+const music=document.getElementById("music");
+const final=document.getElementById("final");
 
-function play(){
-  if(progress<100){
-    progress+=25;
-    bar.style.width=progress+"%";
+let taps=0;
+let active=false;
 
-    if(progress==25) story.innerHTML="Popat thoda naraz hai 😑";
-    if(progress==50) story.innerHTML="Popat soch raha hai… 🤔";
-    if(progress==75) story.innerHTML="Popat almost maan gaya 😌";
-    if(progress==100){
-      story.innerHTML="Popat maan gaya 💚";
-      document.getElementById("final").style.display="block";
-    }
+/* start interaction */
+start.addEventListener("click",()=>{
+  start.style.display="none";
+  music.play();
+  active=true;
+  movePopat();
+});
+
+/* popat movement */
+function movePopat(){
+  if(!active) return;
+  const x=Math.random()*(window.innerWidth-80);
+  const y=Math.random()*(window.innerHeight-80);
+  popat.style.left=x+"px";
+  popat.style.top=y+"px";
+  setTimeout(movePopat,800);
+}
+
+/* catch popat */
+popat.addEventListener("click",e=>{
+  e.stopPropagation();
+  taps++;
+  popat.style.transform="scale(0.9)";
+  setTimeout(()=>popat.style.transform="scale(1)",100);
+
+  if(taps>=4){
+    active=false;
+    popat.style.display="none";
+    celebrate();
+  }
+});
+
+/* celebration */
+function celebrate(){
+  final.style.display="block";
+
+  for(let i=0;i<80;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*window.innerWidth+"px";
+    c.style.top="-10px";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
   }
 }
 
-/* fireworks */
+/* fireworks on tap */
 document.body.addEventListener("click",e=>{
   const s=document.createElement("div");
   s.className="spark";
