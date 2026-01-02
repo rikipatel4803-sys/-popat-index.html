@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Popat 💚</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(135deg,#a8edea,#fed6e3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
+  background:#fff;
+  width:90%;
+  max-width:420px;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 15px 30px rgba(0,0,0,0.25);
+  animation: zoom 1s ease;
+}
+
+@keyframes zoom{
+  from{transform:scale(0.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+.popat{
+  font-size:70px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+
+h1{
+  color:#ff4081;
+  margin:10px 0;
+}
+
+p{
+  font-size:17px;
+  color:#333;
+  margin:12px 0;
+}
+
+button{
+  background:#ff4081;
+  color:#fff;
+  border:none;
+  padding:12px 28px;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{
+  background:#e91e63;
+}
+
+#msg{
+  display:none;
+  margin-top:15px;
+}
+
+.footer{
+  margin-top:18px;
+  font-size:14px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="popat">🐦</div>
+  <h1>Sorry Popat 💚</h1>
+
+  <p>
+    New Year wish karna bhool gayi 😭<br>
+    Ye meri sabse badi bhool thi…
+  </p>
+
+  <button onclick="showSorry()">Click karo Popat 😄</button>
+
+  <div id="msg">
+    <p>
+      Tu sirf friend nahi,<br>
+      <b>MERA BEST FRIEND</b> hai ❤️<br><br>
+      Late ho gayi par feelings full power 😌<br>
+      Sorry Popat 🙏<br><br>
+      ✨ Happy New Year ✨<br>
+      Hamesha mera favourite Popat rahega 😂💚
+    </p>
+  </div>
+
+  <div class="footer">
+    Made with 💚 by your bestie
+  </div>
+</div>
+
+<script>
+function showSorry(){
+  document.getElementById("msg").style.display="block";
+}
+</script>
+
+</body>
+</html>
