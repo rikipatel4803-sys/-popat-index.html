@@ -1,67 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Popat Sorry Quest 💚</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Popat Capture Quest 💚</title>
 
 <style>
+:root{
+  --pink:#ff4d6d;
+  --bg:linear-gradient(135deg,#a8edea,#fed6e3);
+}
+
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Comic Sans MS',cursive;}
 
 body{
-  min-height:100vh;
-  background:linear-gradient(135deg,#a8edea,#fed6e3);
+  height:100vh;
+  background:var(--bg);
   overflow:hidden;
 }
 
-/* start screen */
-#start{
+/* overlay */
+#overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
+  background:rgba(0,0,0,.6);
+  color:#fff;
   font-size:22px;
   z-index:50;
 }
 
-/* flying popat */
+/* popat */
 #popat{
   position:absolute;
-  font-size:70px;
+  font-size:72px;
   cursor:pointer;
-  transition:0.3s;
+  user-select:none;
+  transform:translate(-50%,-50%);
 }
 
-/* message card */
-.card{
+/* final card */
+#card{
   position:fixed;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:white;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+
+.card-inner{
+  background:#fff;
   padding:30px;
   width:90%;
   max-width:420px;
   border-radius:30px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.3);
-  display:none;
-  z-index:10;
+  box-shadow:0 25px 50px rgba(0,0,0,.3);
+  animation:pop .6s ease;
 }
 
-.card h1{color:#ff4081;margin-bottom:10px;}
-.card p{font-size:17px;color:#333;}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+h1{color:var(--pink);margin-bottom:10px;}
+p{font-size:17px;color:#333}
 
 /* confetti */
 .confetti{
   position:absolute;
-  width:8px;
-  height:8px;
-  background:gold;
+  width:8px;height:8px;
   animation:fall 2s linear forwards;
 }
 @keyframes fall{
@@ -71,21 +83,20 @@ body{
 /* fireworks */
 .spark{
   position:absolute;
-  width:6px;
-  height:6px;
-  background:#ff0;
+  width:6px;height:6px;
+  background:gold;
   border-radius:50%;
   animation:boom 1s ease-out forwards;
 }
 @keyframes boom{
-  to{transform:scale(20);opacity:0;}
+  to{transform:scale(25);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div id="start">Tap anywhere to start 🎵</div>
+<div id="overlay">Tap anywhere to start 🎵</div>
 
 <audio id="music" loop>
   <source src="Relax_with_Soft_Piano_Music_Birds_Singing_Beautiful_Nature_256KBPS.mp3">
@@ -93,66 +104,90 @@ body{
 
 <div id="popat">🐦</div>
 
-<div class="card" id="final">
-  <h1>Happy New Year 💚</h1>
-  <p>
-    Popat pakday gayo 😄<br><br>
-    New Year wish late ho gayi 😭<br>
-    par tu meri life ka fixed part hai 🐦💚<br><br>
-    Sorry Popat 🙏<br>
-    ✨ Happy New Year ✨
-  </p>
+<div id="card">
+  <div class="card-inner">
+    <h1>Happy New Year 💚</h1>
+    <p>
+      Tu Popat pakad liya 😄<br><br>
+      New Year wish late ho gayi,<br>
+      par tu meri life ka fixed part hai 🐦💚<br><br>
+      Sorry Popat 🙏<br>
+      ✨ Happy New Year ✨
+    </p>
+  </div>
 </div>
 
 <script>
-const start=document.getElementById("start");
+/* ---------- STATE ---------- */
+const STATE={INIT:0,CHASE:1,END:2};
+let current=STATE.INIT;
+
+/* ---------- ELEMENTS ---------- */
 const popat=document.getElementById("popat");
+const overlay=document.getElementById("overlay");
 const music=document.getElementById("music");
-const final=document.getElementById("final");
+const card=document.getElementById("card");
 
-let taps=0;
-let active=false;
+/* ---------- GAME DATA ---------- */
+let hits=0;
+let target={x:200,y:200};
+let pos={x:200,y:200};
+let lastHit=0;
 
-/* start interaction */
-start.addEventListener("click",()=>{
-  start.style.display="none";
+/* ---------- START ---------- */
+overlay.addEventListener("click",()=>{
+  overlay.style.display="none";
   music.play();
-  active=true;
-  movePopat();
+  current=STATE.CHASE;
+  moveTarget();
+  animate();
 });
 
-/* popat movement */
-function movePopat(){
-  if(!active) return;
-  const x=Math.random()*(window.innerWidth-80);
-  const y=Math.random()*(window.innerHeight-80);
-  popat.style.left=x+"px";
-  popat.style.top=y+"px";
-  setTimeout(movePopat,800);
+/* ---------- POPAT MOVE LOGIC ---------- */
+function moveTarget(){
+  if(current!==STATE.CHASE) return;
+  target.x=Math.random()*(innerWidth-80)+40;
+  target.y=Math.random()*(innerHeight-80)+40;
+  setTimeout(moveTarget,700);
 }
 
-/* catch popat */
+function animate(){
+  if(current!==STATE.CHASE) return;
+  pos.x+=(target.x-pos.x)*0.08;
+  pos.y+=(target.y-pos.y)*0.08;
+  popat.style.left=pos.x+"px";
+  popat.style.top=pos.y+"px";
+  requestAnimationFrame(animate);
+}
+
+/* ---------- CAPTURE LOGIC ---------- */
 popat.addEventListener("click",e=>{
   e.stopPropagation();
-  taps++;
-  popat.style.transform="scale(0.9)";
-  setTimeout(()=>popat.style.transform="scale(1)",100);
+  const now=Date.now();
+  if(now-lastHit<300) return; // debounce
+  lastHit=now;
+  hits++;
 
-  if(taps>=4){
-    active=false;
-    popat.style.display="none";
-    celebrate();
-  }
+  popat.style.transform="translate(-50%,-50%) scale(.85)";
+  setTimeout(()=>popat.style.transform="translate(-50%,-50%) scale(1)",120);
+
+  if(hits>=4) endGame();
 });
 
-/* celebration */
-function celebrate(){
-  final.style.display="block";
+/* ---------- END ---------- */
+function endGame(){
+  current=STATE.END;
+  popat.style.display="none";
+  card.style.display="flex";
+  celebrate();
+}
 
-  for(let i=0;i<80;i++){
+/* ---------- CELEBRATION ---------- */
+function celebrate(){
+  for(let i=0;i<100;i++){
     const c=document.createElement("div");
     c.className="confetti";
-    c.style.left=Math.random()*window.innerWidth+"px";
+    c.style.left=Math.random()*innerWidth+"px";
     c.style.top="-10px";
     c.style.background=`hsl(${Math.random()*360},100%,50%)`;
     document.body.appendChild(c);
@@ -160,8 +195,9 @@ function celebrate(){
   }
 }
 
-/* fireworks on tap */
+/* ---------- FIREWORKS ---------- */
 document.body.addEventListener("click",e=>{
+  if(current!==STATE.END) return;
   const s=document.createElement("div");
   s.className="spark";
   s.style.left=e.clientX+"px";
